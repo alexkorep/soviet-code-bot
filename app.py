@@ -4,6 +4,11 @@ import telebot
 import json
 from dotenv import load_dotenv
 
+from handle_start import handle_start
+from handle_resume import handle_resume
+from handle_jobs import handle_jobs
+from models.user_status import UserStatusModel
+
 
 load_dotenv()
 
@@ -14,6 +19,7 @@ WEBHOOK_URL = "https://{}/{}".format(WEBHOOK_HOST, TELEGRAM_API_KEY)
 
 bot = telebot.TeleBot(TELEGRAM_API_KEY, threaded=False)
 app = Flask(__name__)
+
 
 @app.route("/", methods=["GET", "HEAD"])
 def index():
@@ -35,13 +41,22 @@ def webhook():
         return "OK"
 
 
-# @bot.message_handler(commands=['prompt'])
-# def set_prompt(message):
-#     handle_message_prompt(bot, message)
+@bot.message_handler(commands=['start'])
+def set_prompt(message):
+    chat_dest = message.chat.id
+    handle_start(bot, chat_dest)
 
-# @bot.message_handler(commands=['prompt_delete'])
-# def set_prompt(message):
-#     handle_message_prompt_delete(bot, message)
+
+@bot.message_handler(commands=['resume'])
+def set_prompt(message):
+    chat_dest = message.chat.id
+    handle_resume(bot, chat_dest)
+
+
+@bot.message_handler(commands=['jobs'])
+def set_prompt(message):
+    chat_dest = message.chat.id
+    handle_jobs(bot, chat_dest)
 
 
 @bot.message_handler(content_types=["text"])
@@ -52,12 +67,9 @@ def handle_text(message):
     return "", 200
 
 
-
-
 if TELEGRAM_API_KEY and WEBHOOK_HOST:
     webhook_info = bot.get_webhook_info()
     if webhook_info.url != WEBHOOK_URL:
         # Set webhook
         bot.set_webhook(url=WEBHOOK_URL)
-    # create_dynamodb_table_history()
-    # create_dynamodb_table_prompt()
+    UserStatusModel.create_table(read_capacity_units=1, write_capacity_units=1)

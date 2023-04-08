@@ -27,10 +27,6 @@ Rename `zappa_settings.template.json` to `zappa_settings.json` and update the pa
 3. Run the app:
 
 ```
-flask run --host=0.0.0.0 --port 5001
+flask --debug run --host=0.0.0.0 --port 5001
 ```
 
-## Security considerations
-
-The bot keeps the history of the messages in the plain text in DynamoDB. 
-Please make sure your users are aware and are OK with that.

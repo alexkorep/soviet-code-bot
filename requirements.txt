@@ -3,3 +3,5 @@ pyTelegramBotAPI==4.9.0
 zappa==0.56.1
 boto3==1.26.72
 python-dotenv==1.0.0
+pyyaml
+pynamodb==5.4.1
