@@ -4,9 +4,11 @@ import telebot
 import json
 from dotenv import load_dotenv
 
-from handle_start import handle_start
-from handle_resume import handle_resume
-from handle_jobs import handle_jobs
+from views.handle_start import handle_start
+from views.handle_resume import handle_resume
+from views.handle_jobs import handle_jobs
+from views.handle_apply import handle_apply
+
 from models.user_status import UserStatusModel
 
 
@@ -42,19 +44,26 @@ def webhook():
 
 
 @bot.message_handler(commands=['start'])
-def set_prompt(message):
+def start_handler(message):
     chat_dest = message.chat.id
     handle_start(bot, chat_dest)
 
+@bot.message_handler(regexp='apply_(.*)')
+def apply_handler(message):
+    company_code = message.text.replace('/apply_', '')
+    print('company_code', company_code)
+    chat_dest = message.chat.id
+    handle_apply(bot, chat_dest, company_code)
+
 
 @bot.message_handler(commands=['resume'])
-def set_prompt(message):
+def resume_handler(message):
     chat_dest = message.chat.id
     handle_resume(bot, chat_dest)
 
 
 @bot.message_handler(commands=['jobs'])
-def set_prompt(message):
+def jobs_handler(message):
     chat_dest = message.chat.id
     handle_jobs(bot, chat_dest)
 
