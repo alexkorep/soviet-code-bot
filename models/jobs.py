@@ -1,7 +1,5 @@
 import yaml
 from yaml.loader import SafeLoader
-from models.user_status import UserStatusModel
-
 
 class TechnologyRequirement:
     technology_code: str
@@ -59,10 +57,3 @@ with open('./data/jobs.yaml') as f:
         #       job.history, job.city, job.address, job.position, job.requirements, job.responsibilities)
 
 
-def get_job_score_for_user(job: Job, user_status: UserStatusModel):
-    score = 0
-    for technology_requirement in job.technology_requirements:
-        technology_code = technology_requirement.technology_code
-        if technology_code in user_status.technologies:
-            score += 1
-    return score

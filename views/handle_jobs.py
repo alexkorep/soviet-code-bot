@@ -1,7 +1,8 @@
 import random
 from flask import render_template
-from models.jobs import jobs, get_job_score_for_user
+from models.jobs import jobs
 from models.user_status import UserStatusModel
+from models.model_utils import get_job_score_for_user
 
 def make_stars(count):
     # Unicode star

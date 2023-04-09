@@ -1,6 +1,6 @@
 from flask import render_template
 from models.user_status import UserStatusModel
-from models.tools import tools
+from models.model_utils import get_experience
 
 # Month names in Russian
 MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -21,11 +21,13 @@ def handle_resume(bot, chat_dest):
         user_status = UserStatusModel(chat_dest, current_month=0)
 
     current_date_str = format_date(user_status.current_month)
+    experiences = get_experience(user_status)
     resume_text = render_template('resume.txt',
                                   current_date=current_date_str,
-                                  technologies=user_status.technologies or [])
+                                  technologies=user_status.technologies or [],
+                                  experiences=experiences)
     bot.send_message(chat_dest, resume_text)
+
     user_status.current_month += 1
-    # user_status.job_history = []
-    # user_status.technologies = []
     user_status.save()
+

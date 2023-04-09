@@ -15,3 +15,7 @@ class UserStatusModel(Model):
     current_month = NumberAttribute(null=True)
     job_history = JSONAttribute(null=True)
     technologies = JSONAttribute(null=True)
+
+    def increment_month(self):
+        self.current_month += 1
+
