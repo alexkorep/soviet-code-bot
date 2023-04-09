@@ -1,15 +1,7 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, render_template
 import telebot
-import json
 from dotenv import load_dotenv
-
-from views.handle_start import handle_start
-from views.handle_resume import handle_resume
-from views.handle_jobs import handle_jobs
-from views.handle_apply import handle_apply
-
-from models.user_status import UserStatusModel
 
 
 load_dotenv()
@@ -42,38 +34,26 @@ def webhook():
         print(e)
         return "OK"
 
+def handle_page(page, chat_dest):
+    text = render_template(f"{page}.txt")
+    bot.send_message(chat_dest, text)
 
 @bot.message_handler(commands=['start'])
 def start_handler(message):
     chat_dest = message.chat.id
-    handle_start(bot, chat_dest)
+    handle_page('start', chat_dest)
 
-@bot.message_handler(regexp='apply_(.*)')
+@bot.message_handler(regexp='p(.*)')
 def apply_handler(message):
-    company_code = message.text.replace('/apply_', '')
-    print('company_code', company_code)
+    page = message.text.replace('/', '')
     chat_dest = message.chat.id
-    handle_apply(bot, chat_dest, company_code)
-
-
-@bot.message_handler(commands=['resume'])
-def resume_handler(message):
-    chat_dest = message.chat.id
-    handle_resume(bot, chat_dest)
-
-
-@bot.message_handler(commands=['jobs'])
-def jobs_handler(message):
-    chat_dest = message.chat.id
-    handle_jobs(bot, chat_dest)
+    handle_page(page, chat_dest)
 
 
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     chat_dest = message.chat.id
-    user_username = message.from_user.username
-    bot.send_message(chat_dest, f"Hello, {user_username}!")
-    return "", 200
+    handle_page('404', chat_dest)
 
 
 if TELEGRAM_API_KEY and WEBHOOK_HOST:
@@ -81,4 +61,3 @@ if TELEGRAM_API_KEY and WEBHOOK_HOST:
     if webhook_info.url != WEBHOOK_URL:
         # Set webhook
         bot.set_webhook(url=WEBHOOK_URL)
-    UserStatusModel.create_table(read_capacity_units=1, write_capacity_units=1)
