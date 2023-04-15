@@ -16,10 +16,12 @@ def handle_jobs(bot, chat_dest):
     jobs = Job.load_jobs_from_file('data/jobs.yaml')
     jobs_for_user = job_services.filter_jobs_by_skills(
         jobs, game_state.skill_levels)
-    # # Calculate the probability of being accepted for the each job
-    # for job in jobs_for_user:
-    #     job.acceptance_probability = job_services.calculate_job_acceptance_probability(
-    #         job, game_state.skill_levels)
+    print('jobs_for_user', jobs_for_user)
+    # Calculate the probability of being accepted for the each job
+    for job in jobs_for_user:
+        job.acceptance_probability = job_services.calculate_job_acceptance_probability(
+            job, game_state.skill_levels)
+        
 
-    # text = render_template('jobs.txt', jobs_for_user=jobs_for_user)
-    # bot.send_message(chat_dest, text)
+    text = render_template('jobs.txt', jobs_for_user=jobs_for_user)
+    bot.send_message(chat_dest, text)

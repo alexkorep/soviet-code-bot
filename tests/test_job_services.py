@@ -44,8 +44,6 @@ class TestJobFilter(unittest.TestCase):
             RequiredSkill('Django', 2, 1),
             RequiredSkill('SQL', 1, 1)
         ], 0.5)
-        skill_months_dict = {
-            skill.id: skill.months for skill in self.user_skill_months}
         probability = calculate_job_acceptance_probability(
-            job, skill_months_dict)
+            job, self.user_skill_months)
         self.assertAlmostEqual(probability, 0.45, places=3)

@@ -1,0 +1,22 @@
+- id: job1
+  company: Company A
+  title: Software Engineer
+  description: Develop software applications.
+  required_skills:
+    - id: python
+      months: 12
+      priority: 2
+    - id: java
+      months: 6
+      priority: 1
+  base_probability: 0.8
+
+- id: job2
+  company: Company B
+  title: Data Scientist
+  description: Analyze data and build models.
+  required_skills:
+    - id: python
+      months: 18
+      priority: 3
+  base_probability: 0.9

@@ -4,13 +4,13 @@
   description: Develop and maintain Python-based applications for Google's various products and services.
   required_skills:
     - id: python
-      level: 6
+      months: 6
       priority: 0.8
     - id: algorithms
-      level: 4
+      months: 4
       priority: 0.6
     - id: machine-learning
-      level: 2
+      months: 2
       priority: 0.4
   base_probability: 0.3
 
@@ -20,12 +20,12 @@
   description: Develop and maintain Java-based applications for Microsoft's various products and services.
   required_skills:
     - id: java
-      level: 8
+      months: 8
       priority: 0.8
     - id: sql
-      level: 4
+      months: 4
       priority: 0.6
     - id: agile
-      level: 2
+      months: 2
       priority: 0.4
   base_probability: 0.4

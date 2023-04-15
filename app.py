@@ -10,6 +10,7 @@ from views.handle_jobs import handle_jobs
 from views.handle_apply import handle_apply
 
 from models.game_state import GameState
+from services.callstack import print_exceptions
 
 
 load_dotenv()
@@ -44,11 +45,14 @@ def webhook():
 
 
 @bot.message_handler(commands=['start'])
+@print_exceptions
 def start_handler(message):
     chat_dest = message.chat.id
     handle_start(bot, chat_dest)
 
+
 @bot.message_handler(regexp='apply_(.*)')
+@print_exceptions
 def apply_handler(message):
     company_code = message.text.replace('/apply_', '')
     print('company_code', company_code)
@@ -57,18 +61,21 @@ def apply_handler(message):
 
 
 @bot.message_handler(commands=['resume'])
+@print_exceptions
 def resume_handler(message):
     chat_dest = message.chat.id
     handle_resume(bot, chat_dest)
 
 
 @bot.message_handler(commands=['jobs'])
+@print_exceptions
 def jobs_handler(message):
     chat_dest = message.chat.id
     handle_jobs(bot, chat_dest)
 
 
 @bot.message_handler(content_types=["text"])
+@print_exceptions
 def handle_text(message):
     chat_dest = message.chat.id
     user_username = message.from_user.username
