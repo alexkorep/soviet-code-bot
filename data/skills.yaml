@@ -1,0 +1,15 @@
+- id: python
+  name: Python
+  description: Python is a high-level programming language
+
+- id: java
+  name: Java
+  description: Java is a popular programming language used for developing enterprise applications
+
+- id: html
+  name: HTML
+  description: HTML is a markup language used to create web pages
+
+- id: css
+  name: CSS
+  description: CSS is a stylesheet language used to describe the presentation of a document written in HTML

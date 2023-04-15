@@ -1,0 +1,10 @@
+Available jobs:
+{% for job in jobs_for_user %}
+{{ job.title }} at {{ job.company }}
+Description: {{ job.description }}
+Required skills:
+{% for required_skill in job.required_skills %}
+- {{ required_skill.id }} ({{ required_skill.level }} months, priority {{ required_skill.priority }})
+{% endfor %}
+Acceptance probability: {{ job.acceptance_probability }}
+{% endfor %}

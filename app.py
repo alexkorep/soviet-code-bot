@@ -9,7 +9,7 @@ from views.handle_resume import handle_resume
 from views.handle_jobs import handle_jobs
 from views.handle_apply import handle_apply
 
-from models.user_status import UserStatusModel
+from models.game_state import GameState
 
 
 load_dotenv()
@@ -81,4 +81,4 @@ if TELEGRAM_API_KEY and WEBHOOK_HOST:
     if webhook_info.url != WEBHOOK_URL:
         # Set webhook
         bot.set_webhook(url=WEBHOOK_URL)
-    UserStatusModel.create_table(read_capacity_units=1, write_capacity_units=1)
+    GameState.create_table(read_capacity_units=1, write_capacity_units=1)

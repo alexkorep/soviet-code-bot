@@ -1,23 +1,31 @@
----
-- name: Красная Звезда
-  code: red_star
-  industry: IT
-  description: Компания занимается разработкой программного обеспечения для автоматизации производственных процессов.
-  history: Компания была основана в 1975 году как государственный проект по автоматизации промышленности. В настоящее время является одним из крупнейших производителей программного обеспечения в Северной Америке.
-  city: Нью-Йорк
-  address: ул. Ленина, д.1
-  position: Разработчик программного обеспечения
-  technology_requirements:
-    - technology_code: калина
-      years: 2
-    - technology_code: рубин
-      years: 3
-    - technology_code: зеленый_код
-      years: 1
-  responsibilities: Разработка и тестирование программного обеспечения для автоматизации производственных процессов.
-  technologies:
-    - калина
-    - рубин
-    - зеленый_код
-  salary: 100000
-  rating: 4
+- id: google-python-developer
+  company: Google
+  title: Python Developer
+  description: Develop and maintain Python-based applications for Google's various products and services.
+  required_skills:
+    - id: python
+      level: 6
+      priority: 0.8
+    - id: algorithms
+      level: 4
+      priority: 0.6
+    - id: machine-learning
+      level: 2
+      priority: 0.4
+  base_probability: 0.3
+
+- id: microsoft-java-developer
+  company: Microsoft
+  title: Java Developer
+  description: Develop and maintain Java-based applications for Microsoft's various products and services.
+  required_skills:
+    - id: java
+      level: 8
+      priority: 0.8
+    - id: sql
+      level: 4
+      priority: 0.6
+    - id: agile
+      level: 2
+      priority: 0.4
+  base_probability: 0.4
