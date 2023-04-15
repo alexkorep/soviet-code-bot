@@ -1,5 +1,6 @@
 import unittest
 from models.job import Job, RequiredSkill
+from models.game_state import SkillLevel
 from services.job_services import filter_jobs_by_skills, calculate_job_acceptance_probability
 
 COMPANY = 'Google'
@@ -24,13 +25,14 @@ class TestJobFilter(unittest.TestCase):
                 RequiredSkill('AWS', 1, 1)
             ], 0.4)
         ]
-        self.skill_levels = {
-            'Python': 3,
-            'SQL': 2
-        }
+        self.user_skill_months = [
+            SkillLevel(id='Python', months=3),
+            SkillLevel(id='Django', months=2),
+        ]
 
     def test_filter_jobs_by_skills(self):
-        filtered_jobs = filter_jobs_by_skills(self.jobs, self.skill_levels)
+        filtered_jobs = filter_jobs_by_skills(
+            self.jobs, self.user_skill_months)
         self.assertEqual(len(filtered_jobs), 3)
         self.assertIn(self.jobs[0], filtered_jobs)
         self.assertIn(self.jobs[1], filtered_jobs)
@@ -42,6 +44,8 @@ class TestJobFilter(unittest.TestCase):
             RequiredSkill('Django', 2, 1),
             RequiredSkill('SQL', 1, 1)
         ], 0.5)
+        skill_months_dict = {
+            skill.id: skill.months for skill in self.user_skill_months}
         probability = calculate_job_acceptance_probability(
-            job, self.skill_levels)
-        self.assertAlmostEqual(probability, 0.42525, places=3)
+            job, skill_months_dict)
+        self.assertAlmostEqual(probability, 0.45, places=3)

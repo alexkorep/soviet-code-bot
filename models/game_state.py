@@ -11,7 +11,7 @@ TABLE_NAME = 'soviet_code_bot_game_state'
 
 class SkillLevel(MapAttribute):
     id = UnicodeAttribute()
-    level = NumberAttribute()
+    months = NumberAttribute()
 
 class GameState(Model):
     class Meta:
@@ -28,7 +28,7 @@ class GameState(Model):
             print('user_id', user_id)
             return GameState.get(user_id)
         except GameState.DoesNotExist:
-            return GameState(user_id=user_id)
+            return GameState(user_id=user_id, current_date='01.01.2020', skill_levels=[], job_history=[])
 
     def save_to_dynamodb(self):
         self.save()

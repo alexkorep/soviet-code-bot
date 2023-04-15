@@ -3,9 +3,9 @@ from typing import List
 
 
 class RequiredSkill:
-    def __init__(self, id, level, priority):
+    def __init__(self, id, months, priority):
         self.id = id
-        self.level = level
+        self.months = months
         self.priority = priority
 
 
@@ -19,11 +19,11 @@ class Job:
 
     def __init__(self, id, company, title, description, required_skills, base_probability):
         self.id = id
-        self.company = company
-        self.title = title
-        self.description = description
-        self.required_skills = required_skills
-        self.base_probability = base_probability
+        self.company = company or ''
+        self.title = title or ''
+        self.description = description or ''
+        self.required_skills = required_skills or []
+        self.base_probability = base_probability or 0.0
 
     @staticmethod
     def load_jobs_from_file(file_path):
@@ -33,7 +33,7 @@ class Job:
         for job_data in data:
             required_skills = [
                 RequiredSkill(
-                    skill_data['id'], skill_data['level'], skill_data['priority'])
+                    skill_data['id'], skill_data['months'], skill_data['priority'])
                 for skill_data in job_data['required_skills']
             ]
             job = Job(job_data['id'], job_data['company'], job_data['title'], job_data['description'],
